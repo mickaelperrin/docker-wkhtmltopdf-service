@@ -1,12 +1,9 @@
 FROM golang:1.4
 
 MAINTAINER Potiguar Faga <potz@potz.me>
+MAINTAINER Mickaël PERRIN <contact@mickaelperrin.fr>
 
-ENV WKHTML_MAJOR 0.12
-ENV WKHTML_MINOR 2.1
-
-# Builds the wkhtmltopdf download URL based on version numbers above
-ENV DOWNLOAD_URL "http://download.gna.org/wkhtmltopdf/${WKHTML_MAJOR}/${WKHTML_MAJOR}.${WKHTML_MINOR}/wkhtmltox-${WKHTML_MAJOR}.${WKHTML_MINOR}_linux-jessie-amd64.deb"
+ENV DOWNLOAD_URL "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.jessie_amd64.deb"
 
 # Create system user first so the User ID gets assigned
 # consistently, regardless of dependencies added later
@@ -17,7 +14,7 @@ RUN useradd -rM appuser && \
        libpng12-0 libjpeg62-turbo \
        libssl1.0.0 libx11-6 libxext6 libxrender1 \
        xfonts-base xfonts-75dpi && \
-    curl -o /tmp/wkhtmltox.deb $DOWNLOAD_URL && \
+    curl -L -o /tmp/wkhtmltox.deb $DOWNLOAD_URL && \
     dpkg -i /tmp/wkhtmltox.deb && \
     rm /tmp/wkhtmltox.deb && \
     apt-get purge -y curl && \

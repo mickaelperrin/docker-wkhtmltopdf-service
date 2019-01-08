@@ -2,6 +2,32 @@
 
 A dockerized webservice written in [Go](https://golang.org/) that uses [wkhtmltopdf](http://wkhtmltopdf.org/) to convert HTML into documents (images or pdf files).
 
+## Fork
+
+The fork introduce the following modifications:
+- use latest wkhtmltopdf version
+- support for multiple Urls combined in one PDF
+
+**Example:** 
+
+```
+{
+  "urls": {
+    "http://www.google.com",
+    "http://www.reddit.com",
+  },
+  "options": {
+    "margin-bottom": "1cm",
+    "orientation": "Landscape",
+    "grayscale": true
+  },
+  "cookies": {
+    "foo": "bar",
+    "baz": "foo"
+  }
+}
+```
+
 ## Usage
 
 The service listens on port 3000 for POST requests on the root path (`/`). Any other method returns a `405 not allowed` status. Any other path returns a `404 not found` status.

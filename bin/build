@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build --rm -t grouptree/wkhtmltopdf-service .
+docker build --rm -t mickaelperrin/wkhtmltopdf-service .

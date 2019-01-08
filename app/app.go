@@ -18,6 +18,7 @@ func main() {
 
 type documentRequest struct {
 	Url string
+	Urls []string
 	Output string
 	// TODO: whitelist options that can be passed to avoid errors,
 	// log warning when different options get passed
@@ -79,7 +80,14 @@ func requestHandler(response http.ResponseWriter, request *http.Request) {
 			programFile = "/usr/local/bin/wkhtmltopdf"
 			contentType = "application/pdf"
 	}
-	segments = append(segments, req.Url, "-")
+	if req.Url != "" {
+	  segments = append(segments, req.Url, "-")
+	} else if len(req.Urls) > 0 {
+	  for _,url := range req.Urls {
+	    segments = append(segments, url)
+    }
+	  segments = append(segments, "-")
+	}
 	fmt.Println("\tRunning:", programFile, strings.Join(segments, " "))
 	cmd := exec.Command(programFile, segments...)
 	response.Header().Set("Content-Type", contentType)
